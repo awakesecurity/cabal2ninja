@@ -1,0 +1,94 @@
+name:                     cabal2ninja
+version:                  0.0.1
+stability:                Experimental
+build-type:               Simple
+cabal-version:            >= 1.10
+category:                 Build
+copyright:                Copyright 2017 Awake Security
+author:                   Awake Security
+maintainer:               Awake Security <opensource@awakesecurity.com>
+license:                  Apache-2.0
+license-file:             LICENSE.md
+homepage:                 https://github.com/awakesecurity/cabal2ninja
+bug-reports:              https://github.com/awakesecurity/cabal2ninja/issues
+category:                 Build
+synopsis:                 A tool for building Cabal projects with Ninja.
+description:              A tool for building Cabal projects with Ninja.
+
+source-repository head
+    type:                 git
+    branch:               master
+    location:             https://github.com/awakesecurity/cabal2ninja.git
+
+library
+    hs-source-dirs:       library
+    build-depends:        base                        >= 4.8   && < 5.0
+                        , aeson                       >= 1.0   && < 1.3
+                        , aeson-diff                  >= 1.1   && < 1.2
+                        , aeson-pretty                >= 0.8   && < 0.9
+                        , base                        >= 4.8   && < 5.0
+                        , bytestring                  >= 0.10  && < 0.11
+                        , concurrent-supply           >= 0.1   && < 0.2
+                        , containers                  >= 0.5   && < 0.6
+                        , cryptonite                  >= 0.21  && < 0.22
+                        , deepseq                     >= 1.4   && < 1.5
+                        , directory                   >= 1.3   && < 1.4
+                        , Earley                      >= 0.11  && < 0.12
+                        , exceptions                  >= 0.8   && < 0.9
+                        , extra                       >= 1.5   && < 1.6
+                        , flow                        >= 1.0   && < 1.1
+                        , hashable                    >= 1.2   && < 1.3
+                        , HUnit                       >= 1.5   && < 1.6
+                        , intern                      >= 0.9   && < 0.10
+                        , lens                        >= 4.15  && < 4.16
+                        , language-ninja              -any
+                        , makefile                    >= 1.0   && < 1.1
+                        , megaparsec                  >= 5.2   && < 5.3
+                        , monad-mock                  >= 0.1   && < 0.2
+                        , mtl                         >= 2.2   && < 2.3
+                        , prettyprinter               >= 1.1   && < 1.2
+                        , prettyprinter-ansi-terminal >= 1.1   && < 1.2
+                        , QuickCheck                  >= 2.9   && < 2.10
+                        , quickcheck-instances        >= 0.3   && < 0.4
+                        , reflection                  >= 2.1   && < 2.2
+                        , shake                       >= 0.15  && < 0.16
+                        , smallcheck                  >= 1.1   && < 1.2
+                        , smallcheck-lens             >= 0.3   && < 0.4
+                        , system-filepath             >= 0.4   && < 0.5
+                        , tasty                       >= 0.11  && < 0.12
+                        , tasty-golden                >= 2.3   && < 2.4
+                        , tasty-html                  >= 0.4   && < 0.5
+                        , tasty-hunit                 >= 0.9   && < 0.10
+                        , tasty-lens                  >= 0.3   && < 0.4
+                        , tasty-quickcheck            >= 0.8   && < 0.9
+                        , tasty-smallcheck            >= 0.8   && < 0.9
+                        , text                        >= 1.2   && < 1.3
+                        , transformers                >= 0.5   && < 0.6
+                        , turtle                      >= 1.3   && < 1.4
+                        , unordered-containers        >= 0.2   && < 0.3
+                        , versions                    >= 3.1.1 && < 3.2
+                          -- FIXME: remove unneeded dependencies
+    exposed-modules:      CabalToNinja
+    default-language:     Haskell2010
+    other-extensions:     OverloadedStrings
+                          -- FIXME: add the rest of the extensions used
+    ghc-options:          -Wall -g -O0
+                          -fno-warn-type-defaults
+                          -fno-warn-unused-do-bind
+                          -- FIXME: remove all unused imports
+                          -fno-warn-unused-imports
+
+test-suite tests
+    type:                 exitcode-stdio-1.0
+    hs-source-dirs:       tests
+    main-is:              Main.hs
+    build-depends:        base, cabal2ninja
+    default-language:     Haskell2010
+    ghc-options:          -fhpc -threaded -Wall -O0
+
+executable cabal2ninja
+    hs-source-dirs:       executables/cabal2ninja
+    main-is:              Main.hs
+    build-depends:        base, cabal2ninja
+    default-language:     Haskell2010
+    ghc-options:          -threaded -Wall -O0
