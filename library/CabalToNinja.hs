@@ -34,8 +34,36 @@ module CabalToNinja
   ( module CabalToNinja -- FIXME: specific export list
   ) where
 
+import qualified Language.Ninja.AST     as AST
+import qualified Language.Ninja.Compile as Compile
+import qualified Language.Ninja.Errors  as Errors
+import qualified Language.Ninja.IR      as IR
+import qualified Language.Ninja.Lexer   as Lexer
+import qualified Language.Ninja.Misc    as Misc
+import qualified Language.Ninja.Mock    as Mock
+import qualified Language.Ninja.Parser  as Parser
+import qualified Language.Ninja.Pretty  as Pretty
+import qualified Language.Ninja.Shake   as Shake
+
+import           Control.Lens
+
+import           Data.Text              (Text)
+import qualified Data.Text              as Text
+import qualified Data.Text.IO           as Text
+
+import           System.Environment     (getArgs)
+
+generateNinja :: Misc.Path -> IO (AST.Ninja ())
+generateNinja projectDir = do
+  undefined -- FIXME
+
 tests :: IO ()
 tests = pure ()
 
 main :: IO ()
-main = pure ()
+main = do
+  [input, output] <- getArgs
+  let toPath str = str ^. from Misc.pathString
+  ninja <- generateNinja (toPath input)
+  let pretty = Pretty.prettyNinja ninja
+  Text.writeFile output pretty
