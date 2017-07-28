@@ -1,0 +1,86 @@
+- extensions:
+    - default: true
+
+    # These are basically non-negotiable
+    - {name: AllowAmbiguousTypes,      within: []} # should never be necessary
+    - {name: Arrows,                   within: []} # weird syntax
+    - {name: DatatypeContexts,         within: []} # useless
+    - {name: EmptyCase,                within: []} # nearly useless
+    - {name: ImpredicativeTypes,       within: []} # very buggy
+    - {name: IncoherentInstances,      within: []} # footgun
+    - {name: NondecreasingIndentation, within: []} # can be very confusing
+
+    # These can be appealed
+    - {name: ApplicativeDo,            within: []} # buggy
+    - {name: DeriveAnyClass,           within: []} # can be confusing w/ GND
+    - {name: FunctionalDependencies,   within: []} # use TypeFamilies instead
+    - {name: ImplicitParams,           within: []} # dynamically scoped
+    - {name: PatternGuards,            within: []} # ViewPatterns usually better
+    - {name: TemplateHaskell,          within: []} # avoid whenever reasonable
+    - {name: TemplateHaskellQuotes,    within: []} # ditto
+
+    # Exceptions to the above
+    - {name: FunctionalDependencies,   within: [NinjaToNix.Misc.Supply]}
+    - {name: PatternGuards,            within: [Tests.ReferenceLexer]}
+
+- modules:
+    - {name: [Data.Set],                    as: Set}
+    - {name: [Data.Map.Strict],             as: Map}
+    - {name: [Data.Map.Lazy],               as: LMap}
+    - {name: [Data.HashSet],                as: HS}
+    - {name: [Data.HashMap.Strict],         as: HM}
+    - {name: [Data.HashMap.Lazy],           as: LHM}
+    - {name: [Data.Text],                   as: Text}
+    - {name: [Data.Text.Lazy],              as: LText}
+    - {name: [Data.ByteString],             as: BS}
+    - {name: [Data.ByteString.Char8],       as: BSC8}
+    - {name: [Data.ByteString.Lazy],        as: LBS}
+    - {name: [Data.ByteString.Lazy.Char8],  as: LBSC8}
+    - {name: [Data.Aeson],                  as: Aeson}
+    - {name: [Data.Aeson.Types],            as: Aeson}
+    - {name: [Control.Lens],                as: Lens}
+    - {name: [Test.SmallCheck],             as: SC}
+    - {name: [Test.SmallCheck.Drivers],     as: SC}
+    - {name: [Test.SmallCheck.Series],      as: SC}
+    - {name: [Test.QuickCheck],             as: QC}
+    - {name: [Test.QuickCheck.Arbitrary],   as: QC}
+    - {name: [Test.QuickCheck.Function],    as: QC}
+    - {name: [Test.QuickCheck.Gen],         as: QC}
+    - {name: [Test.QuickCheck.Modifiers],   as: QC}
+    - {name: [Test.QuickCheck.Monadic],     as: QC}
+    - {name: [Test.QuickCheck.Poly],        as: QC}
+    - {name: [Test.QuickCheck.Property],    as: QC}
+    - {name: [Test.QuickCheck.Test],        as: QC}
+    - {name: [Test.QuickCheck.Instances],   as: QC}
+
+    - {name: [Language.Ninja.AST],          as: AST}
+    - {name: [Language.Ninja.Compile],      as: Compile}
+    - {name: [Language.Ninja.Errors],       as: Errors}
+    - {name: [Language.Ninja.IR],           as: IR}
+    - {name: [Language.Ninja.Lexer],        as: Lexer}
+    - {name: [Language.Ninja.Misc],         as: Misc}
+    - {name: [Language.Ninja.Mock],         as: Mock}
+    - {name: [Language.Ninja.Parser],       as: Parser}
+    - {name: [Language.Ninja.Pretty],       as: Pretty}
+
+    - {name: [Language.Ninja.AST],          as: Ninja.AST}
+    - {name: [Language.Ninja.Compile],      as: Ninja}
+    - {name: [Language.Ninja.Errors],       as: Ninja.Errors}
+    - {name: [Language.Ninja.IR],           as: Ninja.IR}
+    - {name: [Language.Ninja.Lexer],        as: Ninja}
+    - {name: [Language.Ninja.Misc],         as: Ninja}
+    - {name: [Language.Ninja.Mock],         as: Ninja}
+    - {name: [Language.Ninja.Parser],       as: Ninja}
+    - {name: [Language.Ninja.Pretty],       as: Ninja}
+
+- functions:
+    - {name: unsafePerformIO, within: [Tests.ReferenceLexer.Str0]}
+
+- warn: {name: Use explicit module export list}
+
+- ignore: {name: Redundant bracket}
+- ignore: {name: Redundant do}
+- ignore: {name: Redundant lambda}
+- ignore: {name: Avoid lambda}
+- ignore: {name: Use ||}
+- ignore: {name: Use uncurry}

@@ -1,6 +1,6 @@
 -- -*- coding: utf-8; mode: haskell; -*-
 
--- File: executables/cabal2ninja/CabalToNinja.hs
+-- File: executables/cabal2ninja/Main.hs
 --
 -- License:
 --     Copyright 2017 Awake Security

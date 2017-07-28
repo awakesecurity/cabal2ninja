@@ -95,6 +95,17 @@ cabalPreprocess projectPath = do
   forM_ components
     $ \c -> Cabal.preprocessComponent pkg c lbi False verbosity handlers
 
+newtype Name = MkName { fromName :: Text }
+
+data Component
+  = ComponentLibrary
+    { _componentName    :: !Name
+    , _componentModules :: ![Name]
+    }
+  | ComponentExecutable { _componentName :: !Text }
+  | ComponentTestSuite  { _componentName :: !Text }
+  | ComponentBenchmark  { _componentName :: !Text }
+
 generateNinja :: Misc.Path -> IO (AST.Ninja ())
 generateNinja projectPath = do
   undefined -- FIXME
